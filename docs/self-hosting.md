@@ -7,8 +7,8 @@ credentials. Each person still creates a separate AI Brain account and
 authorizes their own MCP client.
 
 The deployment can fit within hosted free tiers at low usage, but it is not
-guaranteed to be completely free. OpenAI embeddings and Anthropic extraction
-and classification are metered API calls. Connecting a ChatGPT or Claude
+guaranteed to be completely free. OpenAI embeddings and Anthropic memory
+analysis are metered API calls. Connecting a ChatGPT or Claude
 consumer account does not provide or pay for those backend API calls. Qdrant is
 not required because Convex already stores and searches the vectors.
 
@@ -38,6 +38,10 @@ tracked file. Use the provider dashboards or an interactive CLI prompt.
 | `MCP_OAUTH_ENCRYPTION_KEY` | Vercel only       | Encrypts OAuth registrations and authorization codes; secret          |
 | `OPENAI_API_KEY`           | Convex only       | Creates embeddings; secret and billed to the self-host                |
 | `ANTHROPIC_API_KEY`        | Convex only       | Extracts and classifies memories; secret and billed to the self-host  |
+
+The capture path combines classification and metadata extraction in one
+schema-constrained Haiku request. It reuses the original embedding when the
+stored text is unchanged, so a routine capture uses one call to each provider.
 
 `CONVEX_SITE_URL` is supplied by Convex and should not be created manually.
 `CONVEX_DEPLOYMENT` is local Convex CLI linkage, not an application secret and
